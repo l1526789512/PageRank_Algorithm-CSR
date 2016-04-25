@@ -4,7 +4,7 @@ function SaveTestCase(data, names, save_name)
     data_dump = [i, j, val];
     %data = spconvert( data_dump );
     %save -ascii data.txt data_dump
-    fid = fopen(sprintf('%s', save_name), 'wt');
+    fid = fopen(sprintf('C:\\Users\\nrenh_000\\OneDrive for Business\\Semester 2\\CSCI 2270\\Renninger_CSCI2270_FinalProject\\Test_Cases\\%s', save_name), 'wt');
     
     [r, ~] = size(data_dump);
     
