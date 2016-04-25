@@ -1,5 +1,6 @@
 #include <iostream>
-#include "CSR.h"
+#include "CSRMat.h"
+#include "rankingsVector.h"
 
 using namespace std;
 
