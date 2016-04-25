@@ -1,0 +1,10 @@
+http://www.harvard.edu
+http://purl.org/rss/1.0/modules/content
+http://purl.org/dc/terms
+http://xmlns.com/foaf/0.1
+http://ogp.me/ns#
+http://rdfs.org/sioc/ns#
+http://rdfs.org/sioc/types#
+http:/
+http://www.harvard.edu/index.php
+http://html5shiv.googlecode.com/svn/trunk/html5.js

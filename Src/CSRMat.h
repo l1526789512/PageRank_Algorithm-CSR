@@ -2,7 +2,7 @@
 #define CSRMAT_H
 #include <vector>
 #include <iostream>
-
+#include <string>
 
 class CSRMat{
 	
@@ -23,9 +23,11 @@ class CSRMat{
     private:
         
         int sizeOfMatrix;
+        int oneOverNumEls;
         std::vector<float> values;
         std::vector<int> rowRangeIndex;
         std::vector<int> colIndex;
+        std::vector<std::string> urlNames;
 
 };
 

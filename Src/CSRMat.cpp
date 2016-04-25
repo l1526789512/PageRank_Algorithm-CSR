@@ -1,46 +1,44 @@
 #include "CSRMat.h"
 #include <iostream>
 
-CSRMat::CSRMat(const char* fileName, int sizeOfGraph){
+CSRMat::CSRMat(const char* fileNameMat, const char* fileNameURL, int sizeOfGraph){
 
 	/// Build the Graph ///
 	index = 0;
-	std::ifstream inFile(filename, ifstream::in);
-	std::string data;
-	//inFile.open(fileName);
+	std::ifstream inFileMat(fileNameMat, ifstream::in);
+	std::string dataMat;
 	
-	int count = 0; // start as -1, so by the time read 2nd line, can use 0 index of cities[]
+	std::ifstream inFileURL(fileNameURL, ifstream::in);
+	std::string dataURL;
 	
-	std::string names[15]; // array to hold the names of all of the 
-	int weights[15]; // array to hold the weights of edges for every line
-		
-		
-	if(inFile.good()){
 	
-		while(getline(inFile, data)){
+	int count = 0; // keep track of how many lines are read in.
+	
+	
+	/// Reading Graph in
+	if(inFileMat.good()){ 
+	
+		while(getline(inFileMat, dataMat)){
 		
-			std::stringstream ss(data);
+			std::stringstream ss(dataMat);
 			std::string newSS;
 			
+		
 			if( count == 0 ){ // reading vertexes into graph from first line
 			
-				/// ignore first input
+				/// get first input
+			
 				std::getline(ss, newSS, ',');
 				std::stringstream cityName(newSS);
-				std::string name;
-				getline(cityName, name);
-				
-				for(int i = 0; i < 10; i++){ // add all verticies
-					
-					std::getline(ss, newSS, ',');
-					std::stringstream cityStream(newSS);
-					getline(cityStream, names[i]);
-					Graph::addVertex(names[i]);
-				}
+				int sizeOfMatrix;
+				getline(cityName, sizeOfMatrix);
 				
 				count++;
 				
-			} else { // creating the edges based on weights
+			} else { // creating the sparse matrix
+				
+				
+					
 				
 				/// ignore first input
 				std::getline(ss, newSS, ','); // throw away first entry
@@ -62,12 +60,41 @@ CSRMat::CSRMat(const char* fileName, int sizeOfGraph){
 				
 				count++;
 			}
+			
 		}	
 		
 	} else {
 	
 		std::cout << "This File be bAD :(" << std::endl;
 	}
+	
+	
+	
+	/// reading in the URL names
+	
+	if(inFileURL.good()){ 
+		
+			while(getline(inFileURL, dataURL, "\n")){
+			
+				std::stringstream ss(dataURL);
+				std::string newSS;
+				
+		
+				std::getline(ss, newSS);
+				std::stringstream cityStream(newSS);
+				std::string URL;
+				getline(cityStream, URL);
+				
+				urlNames.push_back(URL)
+				
+			}	
+			
+		} else {
+		
+			std::cout << "This File be bAD :(" << std::endl;
+		}	
+	
+	
 }
 
 
