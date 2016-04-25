@@ -9,8 +9,7 @@ function SaveTestCase(data, names, save_name)
     [r, ~] = size(data_dump);
     [sizeOfGraph, ~] = size(data);
     
-    fprintf(fid, '%d\n', sizeOfGraph);
-    
+    fp
     for i = 1: r
         
         fprintf( fid,'%d,%d,%f\n', data_dump(i, 1), data_dump(i, 2), data_dump(i, 3));
@@ -25,6 +24,6 @@ function SaveTestCase(data, names, save_name)
        fprintf(fid, '%s\n', names{i, 1}); 
     end
 
-    fclose all;
+    fclose(fid);
     
 end
