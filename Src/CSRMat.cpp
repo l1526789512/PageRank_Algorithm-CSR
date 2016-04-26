@@ -1,5 +1,9 @@
 #include "CSRMat.h"
 #include <iostream>
+#include <string>
+
+
+
 
 CSRMat::CSRMat(const char* fileNameMat, const char* fileNameURL, int sizeOfGraph){
 
@@ -38,25 +42,25 @@ CSRMat::CSRMat(const char* fileNameMat, const char* fileNameURL, int sizeOfGraph
 			} else { // creating the sparse matrix
 				
 				
-					
+				
 				
 				/// ignore first input
 				std::getline(ss, newSS, ','); // throw away first entry
+				std::stringstream CSRStream(newSS);
+				int row;
+				CSRStream >> weight;
+				
+				std::getline(ss, newSS, ','); // throw away first entry
+				std::stringstream CSRStream(newSS);
+				int column;
+				CSRStream >> weight;
+				
+				std::getline(ss, newSS, ','); // throw away first entry
 				std::stringstream weightStream(newSS);
-				int weight;
+				float value;
 				weightStream >> weight;
 				
-				for(int i = 0; i < 10; i++){ // now add edges whenever number is > 0
-				
-					std::getline(ss, newSS, ',');
-					std::stringstream weightStream(newSS);
-					weightStream >> weights[i];
-					
-					if(weights[i] > 0){ // only add the edge to graph is weight is greater than 0
-						//cout << "1: " << names[count - 1] << " 2: " << names[i] << " 3: " << weights[i] << std::endl;
-						Graph::addEdge(names[count - 1], names[i], weights[i]); // add the weight at the row (count) and column (i) of the non-zero weight
-					}
-				}
+				addValue(value, row, col)
 				
 				count++;
 			}
@@ -68,7 +72,7 @@ CSRMat::CSRMat(const char* fileNameMat, const char* fileNameURL, int sizeOfGraph
 		std::cout << "This File be bAD :(" << std::endl;
 	}
 	
-	
+	numEls = count - 1; // num els in CSR is how many lined were read in
 	
 	/// reading in the URL names
 	

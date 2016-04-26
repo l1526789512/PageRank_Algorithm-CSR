@@ -86,12 +86,12 @@ int main(){
 						cout << "Please make a valid selection for a test case." << endl;
 					}
 				}
-					
 				
 				
-				int year = atoi(insertYear.c_str());
 				
-				movieTable.insertMovie(insertTitle, year);
+				//int year = atoi(insertYear.c_str());
+				
+				//movieTable.insertMovie(insertTitle, year);
 				
 			} else if(userInput == "2"){
 			

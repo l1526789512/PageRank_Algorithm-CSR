@@ -23,6 +23,7 @@ class CSRMat{
     private:
         
         int sizeOfMatrix;
+        int numEls;
         int oneOverNumEls;
         std::vector<float> values;
         std::vector<int> rowRangeIndex;
