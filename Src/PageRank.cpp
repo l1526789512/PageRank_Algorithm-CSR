@@ -18,6 +18,8 @@ struct website{
 
 
 
+
+
 int main(){
 	
 	{
@@ -130,7 +132,7 @@ int main(){
 				/// Print Size of Test Case
 				if(hasMadeGraph){
 				
-					sparseGraph.printSizeOfGraph();
+					sparseGraph.printGraphData();
 					
 				} else {
 				

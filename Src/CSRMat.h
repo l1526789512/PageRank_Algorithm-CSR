@@ -22,13 +22,12 @@ class CSRMat{
         
         CSRMat();
         ~CSRMat();
-        void printSizeOfGraph();
-        int *colIndexZeroCols();
+        void printGraphData();
         int numOfZeroCols();
         void printMatrix();
         void buildGraph(const char* fileName, const char* fileNameURL, int sizeOfGraph);
         void clearContents();
-        std::vector<website> multiplyByVector(double importanceRankings[], std::vector<website> rankVector);
+        //std::vector<website> multiplyByVector(double importanceRankings[], std::vector<website> rankVector);
 
     protected:
     private:

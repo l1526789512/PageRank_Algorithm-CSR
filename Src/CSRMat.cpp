@@ -18,11 +18,11 @@ CSRMat::CSRMat(){
 
 
 
-
 CSRMat::~CSRMat(){
 
 	
 }
+
 
 
 
@@ -44,42 +44,64 @@ void CSRMat::addValue(double newValue, int row, int col, bool isNewRow){
 
 
 
-void CSRMat::printSizeOfGraph(){
+
+void CSRMat::printGraphData(){
 
 	cout << "The size of the test case is a: " << sizeOfMatrix << " x " << sizeOfMatrix << " connectivity matrix with a URL root of: http://www.harvard.edu" << endl;
 	cout << "The number of non-zero elements in the test CSR Matrix is: " << numEls << endl;
+	cout << "The number of dangling nodes is: " << numOfZeroCols() << endl;
 	cout << "The dangling node jumping probability is: " << oneOverNumEls << endl;
-}
-
-
-int* CSRMat::colIndexZeroCols(){
 	
-	int *p = &numEls;
-	return p;
 }
+
+
 
 
 int CSRMat::numOfZeroCols(){
 
-	return 1;
+	
+	int zeroColsCount = 0;
+	bool hasVisitedNonZeroRow = false;
+	
+	for(int index = 0; index < connectivityGraph.rowRangeIndex.size(); index++){ // go through row list
+		
+		for(int j = connectivityGraph.rowRangeIndex[index - 1]; j < connectivityGraph.rowRangeIndex[index]; j++){ // print values in range specified by range vector
+			
+			if(connectivityGraph.values[j] == oneOverNumEls){
+				
+				hasVisitedNonZeroRow = true;
+				zeroColsCount++;
+	
+			}
+			
+		}
+		
+		if(hasVisitedNonZeroRow)
+			break; // only count cols in 1st row, if you keep counting them on each row you'll get duplicates
+	}
+	
+	return zeroColsCount;
 }
 
 
+
 /*
-std::vector<website> CSRMat::multiplyByVector(float importanceRankings[], std::vector<website> rankVector){
+std::vector<website> CSRMat::multiplyByVector(double importanceRankings[], std::vector<website> rankVector){
 
 	
 }
 */
+
+
 
 void CSRMat::printMatrix(){
 	
 	//int index = 1; // for printing row indexes
 	int numElemsInRow;
 	
-	for(int index = 0; index < connectivityGraph.rowRangeIndex.size(); index++){
+	for(int index = 0; index < connectivityGraph.rowRangeIndex.size(); index++){ // go through row list
 		
-		for(int j = connectivityGraph.rowRangeIndex[index - 1]; j < connectivityGraph.rowRangeIndex[index]; j++){
+		for(int j = connectivityGraph.rowRangeIndex[index - 1]; j < connectivityGraph.rowRangeIndex[index]; j++){ // print values in range specified by range vector
 			
 			numElemsInRow = connectivityGraph.rowRangeIndex[index] - connectivityGraph.rowRangeIndex[index - 1];
 			
@@ -94,6 +116,7 @@ void CSRMat::printMatrix(){
 
 
 
+
 void CSRMat::clearContents(){
 
 	connectivityGraph.values.clear();
@@ -103,6 +126,8 @@ void CSRMat::clearContents(){
 	
 	CSRMat(); // call constructor here;
 }
+
+
 
 
 void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int sizeOfGraph){
