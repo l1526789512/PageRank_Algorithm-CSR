@@ -222,11 +222,11 @@ vector<double> normalize( vector<double> inVector ){
 	
 	for(int i = 0; i < size; i++){
 	
-		sum = sum + pow(inVector[i], 2); // sum up every elem squared in vector
+		sum = sum + inVector[i]; // sum up every elem squared in vector
 	}
 	
 	
-	double magnitude = pow(sum, 0.5); // take the sqaure root of the sum of the squares of each elem.
+	double magnitude = sum; // take the sqaure root of the sum of the squares of each elem.
 	
 	
 	for(int i = 0; i < size; i++){
