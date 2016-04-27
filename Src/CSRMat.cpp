@@ -26,7 +26,7 @@ CSRMat::~CSRMat(){
 
 
 
-void CSRMat::addValue(float newValue, int row, int col, bool isNewRow){
+void CSRMat::addValue(double newValue, int row, int col, bool isNewRow){
 	
 	/// update rowRangeIndex if new row starts
 	if(isNewRow){
@@ -44,9 +44,11 @@ void CSRMat::addValue(float newValue, int row, int col, bool isNewRow){
 
 
 
-int CSRMat::sizeOfGraph(){
+void CSRMat::printSizeOfGraph(){
 
-	return 1;
+	cout << "The size of the test case is a: " << sizeOfMatrix << " x " << sizeOfMatrix << " connectivity matrix with a URL root of: http://www.harvard.edu" << endl;
+	cout << "The number of non-zero elements in the test CSR Matrix is: " << numEls << endl;
+	cout << "The dangling node jumping probability is: " << oneOverNumEls << endl;
 }
 
 
@@ -133,7 +135,6 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 			
 				std::getline(ss, newSS, ',');
 				std::stringstream sizeStream(newSS);
-				int sizeOfMatrix;
 				sizeStream >> sizeOfMatrix; // set the row / cols of the square matrix (e.g. 10x10 mat would have sizeOfMatrix = 10)
 				
 				count++;
@@ -155,7 +156,7 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 				/// pick value out of stream
 				std::getline(ss, newSS, ','); 
 				std::stringstream valueStream(newSS);
-				float value;
+				double value;
 				valueStream >> value;
 				
 				
@@ -218,7 +219,7 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 	
 	
 	numEls = count - 1; // num els in CSR is how many lines were read in (how many non-zero elems there are in the CSR mat)
-	cout << "The number of non-zero elements in the test CSR Matrix is: " << numEls << endl;
+	oneOverNumEls = 1 / double(sizeOfMatrix);
 	
 	/// reading in the URL names
 	

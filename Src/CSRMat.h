@@ -6,7 +6,7 @@
 
 struct CSRMatrix{
 
-	std::vector<float> values;
+	std::vector<double> values;
 	std::vector<int> rowRangeIndex;
 	std::vector<int> colIndex;
 	std::vector<std::string> urlNames;
@@ -22,24 +22,23 @@ class CSRMat{
         
         CSRMat();
         ~CSRMat();
-        int sizeOfGraph();
+        void printSizeOfGraph();
         int *colIndexZeroCols();
         int numOfZeroCols();
         void printMatrix();
         void buildGraph(const char* fileName, const char* fileNameURL, int sizeOfGraph);
         void clearContents();
-        std::vector<website> multiplyByVector(float importanceRankings[], std::vector<website> rankVector);
+        std::vector<website> multiplyByVector(double importanceRankings[], std::vector<website> rankVector);
 
     protected:
     private:
         
         int sizeOfMatrix;
         int numEls;
-        int oneOverNumEls;
-        int indexOfFirstElemInSparse;
+        double oneOverNumEls;
         bool isNewRow;
         CSRMatrix connectivityGraph;
-        void addValue(float newValue, int row, int col, bool isNewRow);
+        void addValue(double newValue, int row, int col, bool isNewRow);
 
 };
 
