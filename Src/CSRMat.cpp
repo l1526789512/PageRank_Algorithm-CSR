@@ -16,7 +16,7 @@ CSRMat::CSRMat(){
 	
 	/// Initialize the graph
 	connectivityGraph.rowRangeIndex.push_back(0); // first elem. in row vector of CSR should be 0, as first row starts at 0 index of values vector
-	
+	//cout << "constructor" << endl;
 }
 
 
@@ -110,7 +110,7 @@ std::vector<double> CSRMat::multiplyByVector( vector<double> rankVector , double
 			int colIndex = connectivityGraph.colIndex[j];
 			double valueAtRowIndex = connectivityGraph.values[j];
 			
-			outVec[i] = (outVec[i] + ( valueAtRowIndex * rankVector[colIndex])) * scaling; // actually perform the multiplivation elem. by elem.
+			outVec[i] = outVec[i] + (( valueAtRowIndex * rankVector[colIndex]) * scaling); // actually perform the multiplivation elem. by elem.
 		}
 	}
 	
@@ -165,6 +165,22 @@ void CSRMat::printMatrix(){
 
 
 
+void CSRMat::printRankings(int numberToPrint){
+	
+	int j = int(connectivityGraph.urlNames.size() - 1);
+	
+	for(int i = sizeOfMatrix; i > int(sizeOfMatrix - rankVector.size()); i++){
+		
+		if(j >= 0)
+			cout << "Rank: " << rankVector[i] << " URL: " << connectivityGraph.urlNames[j] << endl;
+			
+		j--;
+	}
+}
+
+
+
+
 void CSRMat::clearContents(){
 
 	connectivityGraph.values.clear();
@@ -172,7 +188,8 @@ void CSRMat::clearContents(){
 	connectivityGraph.colIndex.clear();
 	connectivityGraph.urlNames.clear();
 	
-	CSRMat(); // call constructor here;
+	CSRMat();
+	//onnectivityGraph.rowRangeIndex.push_back(0); // first elem. in row vector of CSR should be 0, as first row starts at 0 index of values vector
 }
 
 
@@ -182,12 +199,14 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 
 	/// Build the Graph ///
 	
+	clearContents();
+	
 	std::ifstream inFileMat(fileNameMat, ifstream::in);
 	std::string dataMat;
 	
 	std::ifstream inFileURL(fileNameURL, ifstream::in);
 	std::string dataURL;
-	
+	//connectivityGraph.rowRangeIndex.push_back(0);
 	
 	int count = 0; // keep track of how many lines are read in.
 	int currentRow = 0; // initialize 
@@ -268,6 +287,7 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 						currentRow = row; // set currentRow to the current row
 						isNewRow =  true;
 						
+						
 					}
 				} 
 				
@@ -284,6 +304,9 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 		/// VERY IMPORTANT - tells where the last row ends
 		int newRowIndex = connectivityGraph.values.size(); // the row index of the first elem in next row is simply # elems in current vector
 		connectivityGraph.rowRangeIndex.push_back(newRowIndex); // append the above to the row vector	
+		
+		inFileMat.close();
+		
 		
 	} else {
 	
@@ -313,10 +336,13 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 				
 			}	
 			
-		} else {
-		
-			std::cout << "This File be bAD :(" << std::endl;
-		}	
-		
-		cout << "Done." << endl;
+			inFileURL.close();	
+	} else {
+	
+		std::cout << "This File be bAD :(" << std::endl;
+	}
+	
+	
+	
+	
 }

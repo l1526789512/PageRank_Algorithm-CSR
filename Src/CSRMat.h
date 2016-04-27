@@ -26,6 +26,7 @@ class CSRMat{
         void printGraphData();
         int numOfZeroCols();
         void printMatrix();
+        void printRankings(int numberToPrint);
         void buildGraph(const char* fileName, const char* fileNameURL, int sizeOfGraph);
         void clearContents();
         int returnSizeOfMat();
@@ -41,7 +42,6 @@ class CSRMat{
         double oneOverNumEls;
         bool isNewRow;
         CSRMatrix connectivityGraph;
-        
         void addValue(double newValue, int row, int col, bool isNewRow);
 
 };
