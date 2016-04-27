@@ -8,6 +8,10 @@
 
 using namespace std;
 
+
+
+
+
 CSRMat::CSRMat(){
 	
 	/// Initialize the graph
@@ -63,7 +67,7 @@ int CSRMat::numOfZeroCols(){
 	int zeroColsCount = 0;
 	bool hasVisitedNonZeroRow = false;
 	
-	for(int index = 0; index < connectivityGraph.rowRangeIndex.size(); index++){ // go through row list
+	for(int index = 0; index < int(connectivityGraph.rowRangeIndex.size()); index++){ // go through row list
 		
 		for(int j = connectivityGraph.rowRangeIndex[index - 1]; j < connectivityGraph.rowRangeIndex[index]; j++){ // print values in range specified by range vector
 			
@@ -85,12 +89,48 @@ int CSRMat::numOfZeroCols(){
 
 
 
-/*
-std::vector<website> CSRMat::multiplyByVector(double importanceRankings[], std::vector<website> rankVector){
 
+std::vector<double> CSRMat::multiplyByVector( vector<double> rankVector , double scaling){ // multiply matrix and vector together and scale the result
+
+	int sizeOfRankVec = rankVector.size();
+	std::vector<double> outVec;
 	
+	for(int i = 0; i < sizeOfRankVec; i++){
+	
+		outVec.push_back(0); // inialize the output to be the same size as input rankvector, with all zeros
+	}
+	
+	
+	
+	/// Multiplying Connectivity Matrix by its rank vector for power method;
+	for(int i = 0; i < sizeOfRankVec; i++){
+	
+		for(int j = connectivityGraph.rowRangeIndex[i]; j < connectivityGraph.rowRangeIndex[i + 1]; j++){
+		
+			int colIndex = connectivityGraph.colIndex[j];
+			double valueAtRowIndex = connectivityGraph.values[j];
+			
+			outVec[i] = (outVec[i] + ( valueAtRowIndex * rankVector[colIndex])) * scaling; // actually perform the multiplivation elem. by elem.
+		}
+	}
+	
+	return outVec;
 }
-*/
+
+
+
+
+int CSRMat::returnSizeOfMat(){
+	
+	return sizeOfMatrix;
+}
+
+
+
+int CSRMat::returnNumEls(){
+
+	return numEls;
+}
 
 
 
@@ -99,7 +139,7 @@ void CSRMat::printMatrix(){
 	//int index = 1; // for printing row indexes
 	int numElemsInRow;
 	
-	for(int index = 0; index < connectivityGraph.rowRangeIndex.size(); index++){ // go through row list
+	for(int index = 0; index < int(connectivityGraph.rowRangeIndex.size()); index++){ // go through row list
 		
 		/// Print URL
 		if(index > 0)

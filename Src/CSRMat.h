@@ -22,12 +22,16 @@ class CSRMat{
         
         CSRMat();
         ~CSRMat();
+        std::vector<double> rankVector;
         void printGraphData();
         int numOfZeroCols();
         void printMatrix();
         void buildGraph(const char* fileName, const char* fileNameURL, int sizeOfGraph);
         void clearContents();
-        //std::vector<website> multiplyByVector(double importanceRankings[], std::vector<website> rankVector);
+        int returnSizeOfMat();
+        int returnNumEls();
+        //void saveRankVector(std::vector<double> newRankVec);
+        std::vector<double> multiplyByVector( std::vector<double> rankVector, double scaling );
 
     protected:
     private:
@@ -37,6 +41,7 @@ class CSRMat{
         double oneOverNumEls;
         bool isNewRow;
         CSRMatrix connectivityGraph;
+        
         void addValue(double newValue, int row, int col, bool isNewRow);
 
 };

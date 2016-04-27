@@ -2,31 +2,31 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 #include "CSRMat.h"
 
 
 using namespace std;
 
+#define POWER_METHOD_TOLERANCE 0.1
+#define ALPHA 0.85
 
-struct website{
-    
-    std::string name;
-    int ranking;
-};
-
-//vector<website> addVectors( vector<website> oldVector , vector<website> newVector );
-
-
-
+/// Functions Used to Calc Principle Eigen Vector
+vector<double> addVectors( vector<double> oldVector , vector<double> newVector, double scaling); // use scaling = 1 for addition, -1 for subtraction 
+vector<double> oneMultiply( vector<double> inVector, double scaling );
+vector<double> normalize( vector<double> inVector );
+double avgDifference(vector<double> rankVectorOld, vector<double> rankVectorNew);
+vector<double> PowerMethod( CSRMat sparseGraph, vector<double> inVector, int &powerIterations);
 
 
 int main(){
 	
 	{
 	
-		vector<website> rankVector;
+		vector<double> rankVector;
 		CSRMat sparseGraph;
 		bool hasMadeGraph = false;
+		int powerIterations = 0;
 		
 		while(1){
 			
@@ -35,7 +35,7 @@ int main(){
 			cout << "1. Create Sparse Graph" << endl;
 			cout << "2. Print its contents" << endl;
 			cout << "3. Print Size and Analytics of Test Case" << endl;
-			cout << "4. " << endl;
+			cout << "4. Calculate Principle Eigenvector / PageRank Vector" << endl;
 			cout << "5. Exit" << endl;
 			
 			
@@ -141,7 +141,26 @@ int main(){
 				
 			} else if(userInput == "4"){
 			
-				///
+				/// Calculate Principle Eigenvector / PageRank Vector
+				
+				std::vector<double> rankVector; // this will be the vector to display, needs initial guess
+				int numOfWebsites = sparseGraph.returnSizeOfMat(); // this is the size of the Rankings vector
+				
+				/// Creating intial guess for rankVector
+				for(int i = 0; i < numOfWebsites; i++){
+				
+					if(i == 0) // start with inital guess of first elem 1, all other elems are 0
+						rankVector.push_back(1);
+					else
+						rankVector.push_back(0);
+						
+				}
+				
+				
+				/// Doing Power Method on this initial guess, returns the converged principle eigenvector / rankings
+				sparseGraph.rankVector = PowerMethod( sparseGraph, rankVector, powerIterations);
+				
+				cout << "Power Method Iterations: " << powerIterations << endl;
 				
 			} else if(userInput == "5"){
 			
@@ -157,9 +176,119 @@ int main(){
 }
 
 
-/*
-vector<website> addVectors( vector<website> oldVector , vector<website> newVector ){
+
+vector<double> addVectors( vector<double> Vector1 , vector<double> Vector2 , double scaling){
+
+	std::vector<double> outVec; // this is the return vector
+	int sizeOfVector = Vector1.size();
+	double sum;
+	
+	for(int i = 0; i < sizeOfVector; i++){
+	
+		sum = Vector1[i] + (scaling * Vector2[i]); //add up elems. of two vectors
+		outVec.push_back(sum); // append them to the same index of outVec
+	}
+	
+	return outVec;
+}
+
+
+
+vector<double> oneMultiply( vector<double> inVector, double scaling ){
+
+	int size = inVector.size();
+	double sum = 0;
+	
+	for(int i = 0; i < size; i++){
+	
+		sum = sum + inVector[i]; // sum up all rows in vector
+	}
+	
+	for(int i = 0; i < size; i++){
+	
+		inVector[i] = sum * scaling; // make every entry of vector the sum of all elems. in it originally
+	}
+	
+	return inVector;
+}
+
+
+
+vector<double> normalize( vector<double> inVector ){
 
 	
+	int size = inVector.size();
+	double sum = 0;
+	
+	for(int i = 0; i < size; i++){
+	
+		sum = sum + pow(inVector[i], 2); // sum up every elem squared in vector
+	}
+	
+	
+	double magnitude = pow(sum, 0.5); // take the sqaure root of the sum of the squares of each elem.
+	
+	
+	for(int i = 0; i < size; i++){
+	
+		inVector[i] = inVector[i] / magnitude; // normalize each elem of the vector
+	}
+	
+	
+	return inVector;
+} 
+
+
+
+double avgDifference(vector<double> rankVectorOld, vector<double> rankVectorNew){
+
+	int size = rankVectorOld.size();
+	double sum = 0;
+	double avgDiff = 0;
+	
+	vector<double> diffVec = addVectors(rankVectorNew, rankVectorOld, -1); // subtract new from old
+	
+	for(int i = 0; i < size; i++){
+	
+		sum = abs(sum + diffVec[i]); // sum up all rows in vector
+	}
+	
+	avgDiff = sum / double(size);
+	
+	return avgDiff;
 }
-*/
+
+
+
+vector<double> PowerMethod( CSRMat sparseGraph, vector<double> rankVector, int &powerIterations){
+
+	double diff = 1;
+	vector<double> newRankVector = rankVector;
+	
+	double numElements = double(sparseGraph.returnNumEls());
+	
+	/// Constants for two vectors
+	double s_const = ALPHA;
+	double ones_const = ( 1 - ALPHA ) / numElements;
+	
+	
+	
+	while(diff > POWER_METHOD_TOLERANCE){
+		
+		
+		/// Creating Vectors to converge
+		std::vector<double> S = sparseGraph.multiplyByVector(rankVector, s_const);
+		std::vector<double> Ones = oneMultiply(rankVector, ones_const);
+		
+		newRankVector = addVectors(S, Ones, 1); // add the two contributions
+		newRankVector = normalize(newRankVector); // normalize the new vector
+		
+		diff = avgDifference(rankVector, newRankVector); // find the average differance between elements of the two vectors
+		
+		
+		powerIterations++;
+		
+	}
+	
+	return newRankVector;
+}
