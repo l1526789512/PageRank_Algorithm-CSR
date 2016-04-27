@@ -4,6 +4,15 @@
 #include <iostream>
 #include <string>
 
+struct CSRMatrix{
+
+	std::vector<float> values;
+	std::vector<int> rowRangeIndex;
+	std::vector<int> colIndex;
+	std::vector<std::string> urlNames;
+};
+
+
 class CSRMat{
 	
 	struct website;
@@ -11,12 +20,12 @@ class CSRMat{
 	
     public:
         
-        CSRMat(const char* fileName, int sizeOfGraph);
+        CSRMat(const char* fileName, const char* fileNameURL, int sizeOfGraph);
         ~CSRMat();
-        void addValue(float newValue, int row, int col);
         int sizeOfGraph();
         int *colIndexZeroCols();
         int numOfZeroCols();
+        void printMatrix();
         std::vector<website> multiplyByVector(float importanceRankings[], std::vector<website> rankVector);
 
     protected:
@@ -25,10 +34,10 @@ class CSRMat{
         int sizeOfMatrix;
         int numEls;
         int oneOverNumEls;
-        std::vector<float> values;
-        std::vector<int> rowRangeIndex;
-        std::vector<int> colIndex;
-        std::vector<std::string> urlNames;
+        int indexOfFirstElemInSparse;
+        bool isNewRow;
+        CSRMatrix connectivityGraph;
+        void addValue(float newValue, int row, int col, bool isNewRow);
 
 };
 

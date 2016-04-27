@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "CSRMat.h"
-#include "rankingsVector.h"
+
 
 using namespace std;
 
@@ -14,7 +14,7 @@ struct website{
     int ranking;
 };
 
-vector<website> addVectors( vector<website> oldVector , vector<website> newVector );
+//vector<website> addVectors( vector<website> oldVector , vector<website> newVector );
 
 
 
@@ -32,7 +32,7 @@ int main(){
 			cout << "2. " << endl;
 			cout << "3. " << endl;
 			cout << "4. " << endl;
-			cout << "5. " << endl;
+			cout << "5. Exit" << endl;
 			
 			
 			string userInput;
@@ -58,27 +58,27 @@ int main(){
 					
 					if(testCase == "1"){
 						
-						CSRMat sparseGraph("../Test_Cases/Graph_10.txt", 10);
+						CSRMat sparseGraph("../Test_Cases/Graph_10.txt", "../Test_Cases/Graph_10_urls.txt", 10);
 						hasMadeGraph = true;
 						
 					} else if(testCase == "2"){
 						
-						CSRMat sparseGraph("../Test_Cases/Graph_20.txt", 20);
+						CSRMat sparseGraph("../Test_Cases/Graph_20.txt", "../Test_Cases/Graph_20_urls.txt", 20);
 						hasMadeGraph = true;
 						
 					} else if(testCase == "3"){
 					
-						CSRMat sparseGraph("../Test_Cases/Graph_50.txt", 50);
+						CSRMat sparseGraph("../Test_Cases/Graph_50.txt", "../Test_Cases/Graph_50_urls.txt", 50);
 						hasMadeGraph = true;
 						
 					} else if(testCase == "4"){
 					
-						CSRMat sparseGraph("../Test_Cases/Graph_100.txt", 100);
+						CSRMat sparseGraph("../Test_Cases/Graph_100.txt", "../Test_Cases/Graph_100_urls.txt", 100);
 						hasMadeGraph = true;
 					
 					} else if(testCase == "5"){
 					
-						CSRMat sparseGraph("../Test_Cases/Graph_200.txt", 200);
+						CSRMat sparseGraph("../Test_Cases/Graph_200.txt", "../Test_Cases/Graph_200_urls.txt", 200);
 						hasMadeGraph = true;
 						
 					} else {
@@ -120,8 +120,9 @@ int main(){
 }
 
 
-
+/*
 vector<website> addVectors( vector<website> oldVector , vector<website> newVector ){
 
 	
 }
+*/
