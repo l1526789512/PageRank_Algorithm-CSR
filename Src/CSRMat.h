@@ -20,12 +20,14 @@ class CSRMat{
 	
     public:
         
-        CSRMat(const char* fileName, const char* fileNameURL, int sizeOfGraph);
+        CSRMat();
         ~CSRMat();
         int sizeOfGraph();
         int *colIndexZeroCols();
         int numOfZeroCols();
         void printMatrix();
+        void buildGraph(const char* fileName, const char* fileNameURL, int sizeOfGraph);
+        void clearContents();
         std::vector<website> multiplyByVector(float importanceRankings[], std::vector<website> rankVector);
 
     protected:
