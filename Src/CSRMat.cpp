@@ -153,7 +153,7 @@ void CSRMat::printMatrix(){
 			
 			numElemsInRow = connectivityGraph.rowRangeIndex[index] - connectivityGraph.rowRangeIndex[index - 1];
 			
-			cout << "Row: " << index << " Column: " << connectivityGraph.colIndex[j] << " Value: " << connectivityGraph.values[j] 
+			cout << "Row: " << index + 1 << " Column: " << connectivityGraph.colIndex[j] << " Value: " << connectivityGraph.values[j] 
 			<< " -- Number of Non-Zero Elements in Row: " << numElemsInRow << endl;
 		}
 	}

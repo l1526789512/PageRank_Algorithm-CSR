@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define POWER_METHOD_TOLERANCE 0.1
+#define POWER_METHOD_TOLERANCE 0.5
 #define ALPHA 0.85
 
 /// Functions Used to Calc Principle Eigen Vector
@@ -220,6 +220,7 @@ vector<double> normalize( vector<double> inVector ){
 	int size = inVector.size();
 	double sum = 0;
 	
+	
 	for(int i = 0; i < size; i++){
 	
 		sum = sum + inVector[i]; // sum up every elem squared in vector
@@ -275,18 +276,24 @@ vector<double> PowerMethod( CSRMat sparseGraph, vector<double> rankVector, int &
 	
 	while(diff > POWER_METHOD_TOLERANCE){
 		
-		
 		/// Creating Vectors to converge
+		
 		std::vector<double> S = sparseGraph.multiplyByVector(rankVector, s_const);
+		
+
 		std::vector<double> Ones = oneMultiply(rankVector, ones_const);
 		
-		newRankVector = addVectors(S, Ones, 1); // add the two contributions
+
+		newRankVector = addVectors(S, Ones, 1); // add the two contributions		
 		newRankVector = normalize(newRankVector); // normalize the new vector
 		
 		diff = avgDifference(rankVector, newRankVector); // find the average differance between elements of the two vectors
 		
+		rankVector = newRankVector;
 		
 		powerIterations++;
+		cout << "diff: " << diff << endl;
+
 		
 	}
 	
