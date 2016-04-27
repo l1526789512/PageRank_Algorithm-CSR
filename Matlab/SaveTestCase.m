@@ -12,7 +12,7 @@ function SaveTestCase(data, names, save_name)
     fid2 = fopen(sprintf('C:\\Users\\nrenh_000\\OneDrive for Business\\Semester 2\\CSCI 2270\\Renninger_CSCI2270_FinalProject\\Test_Cases\\%s_urls.txt', save_name), 'wt');
     
     [r, ~] = size(data_dump);
-    
+    nu
     fprintf(fid, '%d\n', sizeOfGraph);
     
     currentRow = data_dump(1,1);
