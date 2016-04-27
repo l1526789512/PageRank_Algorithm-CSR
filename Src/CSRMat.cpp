@@ -101,6 +101,14 @@ void CSRMat::printMatrix(){
 	
 	for(int index = 0; index < connectivityGraph.rowRangeIndex.size(); index++){ // go through row list
 		
+		/// Print URL
+		if(index > 0)
+			cout << endl << "URL: " << connectivityGraph.urlNames[index - 1] << endl;
+			
+			if( connectivityGraph.rowRangeIndex[index - 1] == connectivityGraph.rowRangeIndex[index] ) // if the row is empty
+				cout << "<empty>" << endl;
+		
+		/// Print other data
 		for(int j = connectivityGraph.rowRangeIndex[index - 1]; j < connectivityGraph.rowRangeIndex[index]; j++){ // print values in range specified by range vector
 			
 			numElemsInRow = connectivityGraph.rowRangeIndex[index] - connectivityGraph.rowRangeIndex[index - 1];
