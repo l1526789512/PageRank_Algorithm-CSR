@@ -317,4 +317,6 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 		
 			std::cout << "This File be bAD :(" << std::endl;
 		}	
+		
+		cout << "Done." << endl;
 }

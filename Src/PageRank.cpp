@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define POWER_METHOD_TOLERANCE 0.5
+#define POWER_METHOD_TOLERANCE 0.01
 #define ALPHA 0.85
 
 /// Functions Used to Calc Principle Eigen Vector
@@ -277,7 +277,7 @@ vector<double> PowerMethod( CSRMat sparseGraph, vector<double> rankVector, int &
 	while(diff > POWER_METHOD_TOLERANCE){
 		
 		/// Creating Vectors to converge
-		
+		cout << "start diff: " << diff << endl;
 		std::vector<double> S = sparseGraph.multiplyByVector(rankVector, s_const);
 		
 
@@ -292,8 +292,7 @@ vector<double> PowerMethod( CSRMat sparseGraph, vector<double> rankVector, int &
 		rankVector = newRankVector;
 		
 		powerIterations++;
-		cout << "diff: " << diff << endl;
-
+		cout << "end diff: " << diff << endl;
 		
 	}
 	
