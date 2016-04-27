@@ -1,6 +1,10 @@
 function SaveTestCase(data, names, save_name)
    
-    [i,j,val] = find(data);
+    [sizeOfGraph, ~] = size(data);
+    
+    data = addStochasticElems(data, sizeOfGraph);
+    
+    [i, j, val] = find(data);
     data_dump = [i, j, val];
     %data = spconvert( data_dump );
     %save -ascii data.txt data_dump
@@ -8,7 +12,6 @@ function SaveTestCase(data, names, save_name)
     fid2 = fopen(sprintf('C:\\Users\\nrenh_000\\OneDrive for Business\\Semester 2\\CSCI 2270\\Renninger_CSCI2270_FinalProject\\Test_Cases\\%s_urls.txt', save_name), 'wt');
     
     [r, ~] = size(data_dump);
-    [sizeOfGraph, ~] = size(data);
     
     fprintf(fid, '%d\n', sizeOfGraph);
     
