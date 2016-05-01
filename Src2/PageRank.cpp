@@ -67,32 +67,32 @@ int main(){
 					
 					if(testCase == "1"){
 						
-						sparseGraph.buildGraph("../Test_Cases/Graph_10.txt", "../Test_Cases/Graph_10_urls.txt", 10);
-						hasMadeGraph = true;
+						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_10.txt", "../Test_Cases/Graph_10_urls.txt", 10);
+						
 						//break;
 						
 					} else if(testCase == "2"){
 						
-						sparseGraph.buildGraph("../Test_Cases/Graph_20.txt", "../Test_Cases/Graph_20_urls.txt", 20);
-						hasMadeGraph = true;
+						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_20.txt", "../Test_Cases/Graph_20_urls.txt", 20);
+						
 						//break;
 						
 					} else if(testCase == "3"){
 					
-						sparseGraph.buildGraph("../Test_Cases/Graph_50.txt", "../Test_Cases/Graph_50_urls.txt", 50);
-						hasMadeGraph = true;
+						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_50.txt", "../Test_Cases/Graph_50_urls.txt", 50);
+			
 						//break;
 						
 					} else if(testCase == "4"){
 					
-						sparseGraph.buildGraph("../Test_Cases/Graph_100.txt", "../Test_Cases/Graph_100_urls.txt", 100);
-						hasMadeGraph = true;
+						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_100.txt", "../Test_Cases/Graph_100_urls.txt", 100);
+					
 						//break;
 						
 					} else if(testCase == "5"){
 					
-						sparseGraph.buildGraph("../Test_Cases/Graph_200.txt", "../Test_Cases/Graph_200_urls.txt", 200);
-						hasMadeGraph = true;
+					 	hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_200.txt", "../Test_Cases/Graph_200_urls.txt", 200);
+					
 						//break;
 						
 					} else if(testCase == "6"){
