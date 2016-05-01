@@ -1,6 +1,6 @@
 # Renninger_CSCI2270_FinalProject
 
-  This project will implement a CSR Sparse matrix as the basis for a C++ implentation of the 
+This project will implement a CSR Sparse matrix as the basis for a C++ implentation of the 
 Google PageRank Algorithm. A web crawler will be used to generate test cases, upon which my PageRank Algorithm will be tested.
 The crawler should store a normed, sparse matrix (in COO format) representation of a connectivity matrix (a graph). From there, it will be converted to CSR and its principle eigenvector will be calculated to a set precision using the power method (matrix - vector multiplication) and the PageRank of each item in the test case will be determined. Also included are the Matlab scripts I wrote to generate the test cases. The project is broken up into two large parts:
   
@@ -28,7 +28,7 @@ The Project should require no special dependencies. It uses all normally include
 
 SYSTEM REQUIREMENTS: 
 - The program uses no special features of any operating system. The only thing to remember to not do is to chnage the file structure    of the repoistory. Reading in the test cases is dependent on the file structure, and without the test cases, the program is useless.
-- If you use codeblocks, make sure to build the project in the Renninger_CSCI2270_FinalProject, otherwise my program will not be able   to find the .txt test cases.
+- If you use codeblocks, make sure to build the project in the Renninger_CSCI2270_FinalProject, otherwise my program will not be able   to find the .txt test cases. Read the how to run section or BUILD_YOUR_PROJECT_IN_THIS_DIRECTORY_IF_USING_CODEBLOCKS.txt in my        project repository for more details.
 
 GROUP MEMBERS:
 N/A. (I worked alone on this project)
