@@ -67,32 +67,32 @@ int main(){
 					
 					if(testCase == "1"){
 						
-						sparseGraph.buildGraph("../Test_Cases/Graph_10.txt", "../Test_Cases/Graph_10_urls.txt", 10);
-						hasMadeGraph = true;
+						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_10.txt", "../Test_Cases/Graph_10_urls.txt", 10);
+						
 						//break;
 						
 					} else if(testCase == "2"){
 						
-						sparseGraph.buildGraph("../Test_Cases/Graph_20.txt", "../Test_Cases/Graph_20_urls.txt", 20);
-						hasMadeGraph = true;
+						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_20.txt", "../Test_Cases/Graph_20_urls.txt", 20);
+						
 						//break;
 						
 					} else if(testCase == "3"){
 					
-						sparseGraph.buildGraph("../Test_Cases/Graph_50.txt", "../Test_Cases/Graph_50_urls.txt", 50);
-						hasMadeGraph = true;
+						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_50.txt", "../Test_Cases/Graph_50_urls.txt", 50);
+			
 						//break;
 						
 					} else if(testCase == "4"){
 					
-						sparseGraph.buildGraph("../Test_Cases/Graph_100.txt", "../Test_Cases/Graph_100_urls.txt", 100);
-						hasMadeGraph = true;
+						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_100.txt", "../Test_Cases/Graph_100_urls.txt", 100);
+					
 						//break;
 						
 					} else if(testCase == "5"){
 					
-						sparseGraph.buildGraph("../Test_Cases/Graph_200.txt", "../Test_Cases/Graph_200_urls.txt", 200);
-						hasMadeGraph = true;
+					 	hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_200.txt", "../Test_Cases/Graph_200_urls.txt", 200);
+					
 						//break;
 						
 					} else if(testCase == "6"){
@@ -140,36 +140,34 @@ int main(){
 				}
 				
 			} else if(userInput == "4"){
-			
-				/// Calculate Principle Eigenvector / PageRank Vector
+				if(hasMadeGraph){
+					/// Calculate Principle Eigenvector / PageRank Vector
 				
-				std::vector<double> rankVector; // this will be the vector to display, needs initial guess
-				int numOfWebsites = sparseGraph.returnSizeOfMat(); // this is the size of the Rankings vector
+					std::vector<double> rankVector; // this will be the vector to display, needs initial guess
+					int numOfWebsites = sparseGraph.returnSizeOfMat(); // this is the size of the Rankings vector
 				
-				/// Creating intial guess for rankVector
-				for(int i = 0; i < numOfWebsites; i++){
+					/// Creating intial guess for rankVector
+					for(int i = 0; i < numOfWebsites; i++){
 				
-					if(i == 0) // start with inital guess of first elem 1, all other elems are 0
-						rankVector.push_back(0.5);
-					else if (i == 1)
-						rankVector.push_back(0.5);
-					else
-						rankVector.push_back(0);
+						if(i == 0) // start with inital guess of first elem 1, all other elems are 0
+							rankVector.push_back(0.5);
+						else if (i == 1)
+							rankVector.push_back(0.5);
+						else
+							rankVector.push_back(0);
 						
+					}
+				
+				
+					/// Doing Power Method on this initial guess, returns the converged principle eigenvector / rankings
+					sparseGraph.rankVector = PowerMethod( sparseGraph, rankVector, powerIterations);
+					cout << "Power Method Iterations: " << powerIterations << endl;
+					//sparseGraph.rankVector = sparseGraph.multiplyByVector(rankVector, 1);
+					sparseGraph.printRankings(10);
+				} else {
+				
+					cout << "Please create graph before trying to print it." << endl;
 				}
-				
-				
-				/// Doing Power Method on this initial guess, returns the converged principle eigenvector / rankings
-				sparseGraph.rankVector = PowerMethod( sparseGraph, rankVector, powerIterations);
-				cout << "Power Method Iterations: " << powerIterations << endl;
-				//sparseGraph.rankVector = sparseGraph.multiplyByVector(rankVector, 1);
-				sparseGraph.printRankings(10);
-				
-			} else if(userInput == "5"){
-			
-				/// quit program
-				cout << "Goodbye. :(" << endl;
-				break;
 		
 			} else if(userInput == "5"){
 			

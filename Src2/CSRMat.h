@@ -20,7 +20,7 @@ class CSRMat{
         int numOfZeroCols();
         void printMatrix();
         void printRankings(int numberToPrint);
-        void buildGraph(const char* fileName, const char* fileNameURL, int sizeOfGraph);
+        bool buildGraph(const char* fileName, const char* fileNameURL, int sizeOfGraph);
         void clearContents();
         int returnSizeOfMat();
         int returnNumEls();

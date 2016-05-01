@@ -220,7 +220,7 @@ void CSRMat::clearContents(){
 
 
 
-void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int sizeOfGraph){
+bool CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int sizeOfGraph){
 
 	/// Build the Graph ///
 
@@ -334,6 +334,8 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 	} else {
 	
 		std::cout << "This File be bAD :(" << std::endl;
+		return false;
+		
 	}
 	
 	
@@ -360,9 +362,12 @@ void CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 			}	
 
 			inFileURL.close();
-			
+	
 		} else {
 		
 			std::cout << "This File be bAD :(" << std::endl;
+			return false;
 		}	
+
+			return true;
 }
