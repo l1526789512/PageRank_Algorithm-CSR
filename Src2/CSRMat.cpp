@@ -71,8 +71,8 @@ int CSRMat::numOfZeroCols(){
 	
 	int zeroColsCount = 0;
 	//bool hasVisitedNonZeroRow = false;
-	int index = 0;
-	//for(int index = 0; index < int(connectivityGraph.rowRangeIndex.size()); index++){ // go through row list
+	
+	for(int index = 0; index < int(connectivityGraph.rowRangeIndex.size()); index++){ // go through row list
 		
 		for(int j = connectivityGraph.rowRangeIndex[index]; j < connectivityGraph.rowRangeIndex[index + 1]; j++){ // print values in range specified by range vector
 			
@@ -84,6 +84,7 @@ int CSRMat::numOfZeroCols(){
 			}
 			
 		}
+	}
 		
 		//if(hasVisitedNonZeroRow)
 			//break; // only count cols in 1st row, if you keep counting them on each row you'll get duplicates

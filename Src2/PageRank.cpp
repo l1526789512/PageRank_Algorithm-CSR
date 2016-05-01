@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define POWER_METHOD_TOLERANCE 0.1
+#define POWER_METHOD_TOLERANCE 0.01
 #define ALPHA 0.85
 
 /// Functions Used to Calc Principle Eigen Vector
