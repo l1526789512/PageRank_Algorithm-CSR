@@ -140,36 +140,34 @@ int main(){
 				}
 				
 			} else if(userInput == "4"){
-			
-				/// Calculate Principle Eigenvector / PageRank Vector
+				if(hasMadeGraph){
+					/// Calculate Principle Eigenvector / PageRank Vector
 				
-				std::vector<double> rankVector; // this will be the vector to display, needs initial guess
-				int numOfWebsites = sparseGraph.returnSizeOfMat(); // this is the size of the Rankings vector
+					std::vector<double> rankVector; // this will be the vector to display, needs initial guess
+					int numOfWebsites = sparseGraph.returnSizeOfMat(); // this is the size of the Rankings vector
 				
-				/// Creating intial guess for rankVector
-				for(int i = 0; i < numOfWebsites; i++){
+					/// Creating intial guess for rankVector
+					for(int i = 0; i < numOfWebsites; i++){
 				
-					if(i == 0) // start with inital guess of first elem 1, all other elems are 0
-						rankVector.push_back(0.5);
-					else if (i == 1)
-						rankVector.push_back(0.5);
-					else
-						rankVector.push_back(0);
+						if(i == 0) // start with inital guess of first elem 1, all other elems are 0
+							rankVector.push_back(0.5);
+						else if (i == 1)
+							rankVector.push_back(0.5);
+						else
+							rankVector.push_back(0);
 						
+					}
+				
+				
+					/// Doing Power Method on this initial guess, returns the converged principle eigenvector / rankings
+					sparseGraph.rankVector = PowerMethod( sparseGraph, rankVector, powerIterations);
+					cout << "Power Method Iterations: " << powerIterations << endl;
+					//sparseGraph.rankVector = sparseGraph.multiplyByVector(rankVector, 1);
+					sparseGraph.printRankings(10);
+				} else {
+				
+					cout << "Please create graph before trying to print it." << endl;
 				}
-				
-				
-				/// Doing Power Method on this initial guess, returns the converged principle eigenvector / rankings
-				sparseGraph.rankVector = PowerMethod( sparseGraph, rankVector, powerIterations);
-				cout << "Power Method Iterations: " << powerIterations << endl;
-				//sparseGraph.rankVector = sparseGraph.multiplyByVector(rankVector, 1);
-				sparseGraph.printRankings(10);
-				
-			} else if(userInput == "5"){
-			
-				/// quit program
-				cout << "Goodbye. :(" << endl;
-				break;
 		
 			} else if(userInput == "5"){
 			
