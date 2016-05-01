@@ -51,7 +51,7 @@ void CSRMat::addValue(double newValue, int row, int col, bool isNewRow){
 
 void CSRMat::printGraphData(){
 
-	cout << "About to enter printing section" << endl;
+	//cout << "About to enter printing section" << endl;
 
 
 	cout << "The size of the test case is a: " << sizeOfMatrix << " x " << sizeOfMatrix << " connectivity matrix with a URL root of: http://www.harvard.edu" << endl;
@@ -59,7 +59,7 @@ void CSRMat::printGraphData(){
 	cout << "The number of dangling nodes is: " << numOfZeroCols() << endl;
 	cout << "The dangling node jumping probability is: " << oneOverNumEls << endl;
 
-	cout << "Done printing" << endl;
+	//cout << "Done printing" << endl;
 	
 }
 
@@ -77,7 +77,7 @@ int CSRMat::numOfZeroCols(){
 		for(int j = connectivityGraph.rowRangeIndex[index]; j < connectivityGraph.rowRangeIndex[index + 1]; j++){ // print values in range specified by range vector
 			
 			if(connectivityGraph.values[index] == oneOverNumEls){
-				cout << "here" << endl;
+				//cout << "here" << endl;
 				//hasVisitedNonZeroRow = true;
 				zeroColsCount++;
 	

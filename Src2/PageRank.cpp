@@ -54,6 +54,7 @@ int main(){
 					/// create graph from selected test case
 					
 					string testCase;
+					cout << endl;
 					
 					cout << "Choose which test to run: " << endl;
 					cout << "1. 10" << endl;
@@ -67,41 +68,50 @@ int main(){
 					
 					if(testCase == "1"){
 						
+						cout << endl;
 						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_10.txt", "../Test_Cases/Graph_10_urls.txt", 10);
-						
+						//cout << endl;
 						//break;
 						
 					} else if(testCase == "2"){
 						
+						cout << endl;
 						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_20.txt", "../Test_Cases/Graph_20_urls.txt", 20);
-						
+						//cout << endl;
 						//break;
 						
 					} else if(testCase == "3"){
 					
+						cout << endl;
 						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_50.txt", "../Test_Cases/Graph_50_urls.txt", 50);
-			
+						//cout << endl;
 						//break;
 						
 					} else if(testCase == "4"){
 					
+						cout << endl;
 						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_100.txt", "../Test_Cases/Graph_100_urls.txt", 100);
-					
+						//cout << endl;
 						//break;
 						
 					} else if(testCase == "5"){
 					
+					 	cout << endl;
 					 	hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_200.txt", "../Test_Cases/Graph_200_urls.txt", 200);
-					
+						//cout << endl;
 						//break;
 						
 					} else if(testCase == "6"){
-					
+						
+						cout << endl;
 						break;
+						cout << endl;
 					
 					} else {
 					
+						cout << endl;
 						cout << "Please make a valid selection for a test case." << endl;
+						cout << endl;
 						
 					}
 					
@@ -118,11 +128,15 @@ int main(){
 				/// print graph
 				if(hasMadeGraph){
 				
+					cout << endl;
 					sparseGraph.printMatrix();
+					cout << endl;
 					
 				} else {
-				
+					
+					cout << endl;
 					cout << "Please create graph before trying to print it." << endl;
+					cout << endl;
 				}
 				
 				
@@ -131,12 +145,16 @@ int main(){
 			
 				/// Print Size of Test Case
 				if(hasMadeGraph){
-				
+					
+					cout << endl;
 					sparseGraph.printGraphData();
+					cout << endl;
 					
 				} else {
-				
+					
+					cout << endl;					
 					cout << "Please create graph before trying to print it." << endl;
+					cout << endl;
 				}
 				
 			} else if(userInput == "4"){
@@ -160,13 +178,18 @@ int main(){
 				
 				
 					/// Doing Power Method on this initial guess, returns the converged principle eigenvector / rankings
+					cout << endl;
 					sparseGraph.rankVector = PowerMethod( sparseGraph, rankVector, powerIterations);
 					cout << "Power Method Iterations: " << powerIterations << endl;
 					//sparseGraph.rankVector = sparseGraph.multiplyByVector(rankVector, 1);
 					sparseGraph.printRankings(10);
+					cout << endl;
+					
 				} else {
-				
+					
+					cout << endl;
 					cout << "Please create graph before trying to print it." << endl;
+					cout << endl;
 				}
 		
 			} else if(userInput == "5"){
@@ -229,7 +252,7 @@ vector<double> normalize( vector<double> inVector ){
 		sum = sum + inVector[i]; // sum up every elem squared in vector
 	}
 	
-	cout << "sum: " << sum << endl;
+	//cout << "sum: " << sum << endl;
 	double magnitude = sum; // take the sqaure root of the sum of the squares of each elem.
 	
 	
@@ -282,12 +305,14 @@ vector<double> PowerMethod( CSRMat sparseGraph, vector<double> rankVector, int &
 	double s_const = ALPHA;
 	double ones_const = ( 1 - ALPHA ) / arraySize;
 	
-	cout << "About to enter while loop" << endl;
+	//cout << "About to enter while loop" << endl;
 	
 	while(diff > POWER_METHOD_TOLERANCE){
 		
 		/// Creating Vectors to converge
-		cout << "About to create vectors" << endl;
+		cout << endl;
+		cout << "Entering new Power Method iteration:" << endl;
+		cout << "About to create vectors:" << endl;
 
 		
 
@@ -309,18 +334,20 @@ vector<double> PowerMethod( CSRMat sparseGraph, vector<double> rankVector, int &
 		int size = newRankVector.size();
 		double sum = 0;
 		
-		
+		cout << "Created new PageRank vector." << endl;
 		
 		for(int i = 0; i < size; i++){
 		
 			sum = sum + newRankVector[i]; // sum up every elem squared in vector
 		}
 		
-		cout << "sum: " << sum << endl;
+		cout << "Sum of PageRank Vector Elems: " << sum << endl;
 		rankVector = newRankVector;
 		
 		powerIterations++;
-		cout << "diff: " << diff << endl;
+		cout << "Computed diff from last vector: " << diff << endl;
+		
+		cout << endl;
 
 		
 	}
