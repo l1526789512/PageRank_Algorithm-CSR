@@ -16,6 +16,13 @@ The crawler should store a normed, sparse matrix (in COO format) representation 
 HOW TO RUN:
 Download the .zip repository and extract it. DO NOT change the file structure. Then, simply open PageRank.cpp, build it, and run it in its native directory. All of the options are included in command prompt menu, and you are only given a few options to ease debugging concerns. In the menu, 1st select a test case size from the onscreen menu (option 1), then choose another option. You will not be able to do anything else until you build up the CSR Matrix from the test case.
 
+- IF YOU ARE USING CODEBLOCKS, build your project inside this folder. Add PageRank.cpp,
+  CSRMat.cpp, and CSRMat.h to the project and build it. Make sure to delete the main.cpp that
+  is automatically created by codeblocks, as it will give you a multiple definition of main error.
+
+- IF YOU USE A TEXT EDITOR, just compile all of the .cpps in the Src2 folder using the *.cpp command line option.
+
+
 DEPENDENCIES:
 The Project should require no special dependencies. It uses all normally included libraries in standard C++98.
 
