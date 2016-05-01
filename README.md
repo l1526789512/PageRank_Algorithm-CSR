@@ -20,7 +20,8 @@ DEPENDENCIES:
 The Project should require no special dependencies. It uses all normally included libraries in standard C++98.
 
 SYSTEM REQUIREMENTS: 
-The program uses no special features of any operating system. The only thing to remember to not do is to chnage the file structure of the repoistory. Reading in the test cases is dependent on the file structure, and without the test cases, the program is useless.
+- The program uses no special features of any operating system. The only thing to remember to not do is to chnage the file structure    of the repoistory. Reading in the test cases is dependent on the file structure, and without the test cases, the program is useless.
+- If you use codeblocks, make sure to build the project in the folder titled BUILD_YOUR_PROJECT_HERE_IF_USING_CODEBLOCKS, otherwise my   program will not be able to find the .txt test cases.
 
 GROUP MEMBERS:
 N/A. (I worked alone on this project)
