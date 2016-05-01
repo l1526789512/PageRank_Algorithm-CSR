@@ -195,6 +195,7 @@ int main(){
 			} else if(userInput == "5"){
 			
 				/// quit program
+				cout << endl;
 				cout << "Goodbye. :(" << endl;
 				break;
 		}
