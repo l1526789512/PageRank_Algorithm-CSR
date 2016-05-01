@@ -54,7 +54,7 @@ void CSRMat::printGraphData(){
 	//cout << "About to enter printing section" << endl;
 
 
-	cout << "The size of the test case is a: " << sizeOfMatrix << " x " << sizeOfMatrix << " connectivity matrix with a URL root of: http://www.harvard.edu" << endl;
+	cout << "The size of this test case is a: " << sizeOfMatrix << " x " << sizeOfMatrix << " connectivity matrix with a URL root of: http://www.harvard.edu" << endl;
 	cout << "The number of non-zero elements in the test CSR Matrix is: " << numEls << endl;
 	cout << "The number of dangling nodes is: " << numOfZeroCols() << endl;
 	cout << "The dangling node jumping probability is: " << oneOverNumEls << endl;
