@@ -20,7 +20,7 @@ Download the .zip repository and extract it. DO NOT change the file structure. T
   CSRMat.cpp, and CSRMat.h to the project and build it. Make sure to delete the main.cpp that
   is automatically created by codeblocks, as it will give you a multiple definition of main error.
 
-- IF YOU USE A TEXT EDITOR, just compile all of the .cpps in the Src2 folder using the *.cpp command line option.
+- IF YOU USE A TEXT EDITOR, just compile all of the .cpps in the Src2 folder using the *.cpp command line option with your compiler.
 
 
 DEPENDENCIES:
