@@ -1,1 +1,6 @@
-If you are running code blocks, build your project inside this folder.
+IF YOU ARE USING CODEBLOCKS, build your project inside this folder. Add PageRank.cpp,
+CSRMat.cpp, and CSRMat.h to the project and build it. Make sure to delete the main.cpp that
+is automatically created by codeblocks, as it will give you a multiple definition of main error.
+
+
+IF YOU USE A TEXT EDITOR, just compile all of the .cpps in the Src2 folder using the *.cpp command line option.
