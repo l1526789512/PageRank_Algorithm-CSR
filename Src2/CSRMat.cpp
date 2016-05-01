@@ -362,10 +362,12 @@ bool CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 			}	
 
 			inFileURL.close();
-			return true;
+	
 		} else {
 		
 			std::cout << "This File be bAD :(" << std::endl;
 			return false;
 		}	
+
+			return true;
 }
