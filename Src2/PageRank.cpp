@@ -56,7 +56,7 @@ int main(){
 					string testCase;
 					cout << endl;
 					
-					cout << "Choose which test to run: " << endl;
+					cout << "Choose which test to run (how many URLs to follow from base URL): " << endl;
 					cout << "1. 10" << endl;
 					cout << "2. 20" << endl;
 					cout << "3. 50" << endl;
