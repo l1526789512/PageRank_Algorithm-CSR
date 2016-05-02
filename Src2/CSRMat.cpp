@@ -53,7 +53,6 @@ void CSRMat::printGraphData(){
 
 	//cout << "About to enter printing section" << endl;
 
-
 	cout << "The size of this test case is a: " << sizeOfMatrix << " x " << sizeOfMatrix << " connectivity matrix with a URL root of: http://www.harvard.edu" << endl;
 	cout << "The number of non-zero elements in the test CSR Matrix is: " << numEls << endl;
 	cout << "The number of dangling nodes is: " << numOfZeroCols() << endl;
@@ -113,16 +112,16 @@ void CSRMat::printRankings(int numberToPrint){
 
 
 
-std::vector<double> CSRMat::multiplyByVector( vector<double> rankVector , double scaling){ // multiply matrix and vector together and scale the result
+std::vector<double>* CSRMat::multiplyByVector( vector<double> *rankVector , double scaling){ // multiply matrix and vector together and scale the result
 
 	//std::cout << "In multiplyByVector" << std::endl;
 
-	int sizeOfRankVec = rankVector.size();
-	std::vector<double> outVec;
+	int sizeOfRankVec = rankVector->size();
+	std::vector<double> *outVec = new std::vector<double>;
 	
 	for(int i = 0; i < sizeOfRankVec; i++){
 	
-		outVec.push_back(0); // inialize the output to be the same size as input rankvector, with all zeros
+		outVec->push_back(0); // inialize the output to be the same size as input rankvector, with all zeros
 	}
 			
 	//std::cout << "Built empty vector with zeroes" << std::endl;
@@ -146,9 +145,9 @@ std::vector<double> CSRMat::multiplyByVector( vector<double> rankVector , double
 			
 				double valueAtRowIndex = connectivityGraph.values[j];
 	
-				//std::cout << "colInd"  << colIndex << "vs" << rankVector.size() << std::endl;
+				//std::cout << "colInd"  << colIndex << "vs" << rankVector->size() << std::endl;
 				
-				outVec[i] = (outVec[i] + ( valueAtRowIndex * rankVector[colIndex])) * scaling; // actually perform the multiplivation elem. by elem.
+				(*outVec)[i] = ( ( (*outVec)[i] + ( valueAtRowIndex * (*rankVector)[colIndex] ) ) * scaling ); // actually perform the multiplivation elem. by elem.
 	
 				//std::cout << "pang" << std::endl;
 			//}
@@ -209,13 +208,14 @@ void CSRMat::printMatrix(){
 
 
 void CSRMat::clearContents(){
-
+	/*
 	connectivityGraph.values.clear();
 	connectivityGraph.rowRangeIndex.clear();
 	connectivityGraph.colIndex.clear();
 	connectivityGraph.urlNames.clear();
+	*/
 	
-	CSRMat(); // call constructor here;
+	//~CSRMat(); // call constructor here;
 }
 
 

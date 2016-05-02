@@ -8,23 +8,23 @@
 
 using namespace std;
 
-#define POWER_METHOD_TOLERANCE 0.01
+#define POWER_METHOD_TOLERANCE 0.04
 #define ALPHA 0.85
 
 /// Functions Used to Calc Principle Eigen Vector
-vector<double> addVectors( vector<double> oldVector , vector<double> newVector, double scaling); // use scaling = 1 for addition, -1 for subtraction 
-vector<double> oneMultiply( vector<double> inVector, double scaling );
-vector<double> normalize( vector<double> inVector );
-double avgDifference(vector<double> rankVectorOld, vector<double> rankVectorNew);
-vector<double> PowerMethod( CSRMat sparseGraph, vector<double> inVector, int &powerIterations);
+vector<double>* addVectors( vector<double>* oldVector , vector<double>* newVector, double scaling); // use scaling = 1 for addition, -1 for subtraction 
+vector<double>* oneMultiply( vector<double>* inVector, double scaling );
+vector<double>* normalize( vector<double>* inVector );
+double avgDifference(vector<double>* rankVectorOld, vector<double>* rankVectorNew);
+vector<double>* PowerMethod( CSRMat* sparseGraph, vector<double>* inVector, int &powerIterations);
 
 
 int main(){
 	
 	{
 	
-		vector<double> rankVector;
-		CSRMat sparseGraph;
+		vector<double> *rankVector;
+		CSRMat *sparseGraph;
 		bool hasMadeGraph = false;
 		int powerIterations = 0;
 		
@@ -43,11 +43,26 @@ int main(){
 			getline(cin, userInput); // get user input
 			
 			
+			
 			// Determine what to run based on user input
 			if(userInput == "1"){
 				
+				if(!hasMadeGraph){
+					
+					sparseGraph = new CSRMat;
+					rankVector = new vector<double>;
+					
+				} else {
+					
+					delete sparseGraph;
+					delete rankVector;
+					
+					sparseGraph = new CSRMat;
+					rankVector = new vector<double>;
+				}
+				
 				hasMadeGraph = false;
-				sparseGraph.clearContents();
+				
 				
 				while(!hasMadeGraph){
 					
@@ -69,35 +84,35 @@ int main(){
 					if(testCase == "1"){
 						
 						cout << endl;
-						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_10.txt", "../Test_Cases/Graph_10_urls.txt", 10);
+						hasMadeGraph = sparseGraph->buildGraph("../Test_Cases/Graph_10.txt", "../Test_Cases/Graph_10_urls.txt", 10);
 						//cout << endl;
 						//break;
 						
 					} else if(testCase == "2"){
 						
 						cout << endl;
-						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_20.txt", "../Test_Cases/Graph_20_urls.txt", 20);
+						hasMadeGraph = sparseGraph->buildGraph("../Test_Cases/Graph_20.txt", "../Test_Cases/Graph_20_urls.txt", 20);
 						//cout << endl;
 						//break;
 						
 					} else if(testCase == "3"){
 					
 						cout << endl;
-						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_50.txt", "../Test_Cases/Graph_50_urls.txt", 50);
+						hasMadeGraph = sparseGraph->buildGraph("../Test_Cases/Graph_50.txt", "../Test_Cases/Graph_50_urls.txt", 50);
 						//cout << endl;
 						//break;
 						
 					} else if(testCase == "4"){
 					
 						cout << endl;
-						hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_100.txt", "../Test_Cases/Graph_100_urls.txt", 100);
+						hasMadeGraph = sparseGraph->buildGraph("../Test_Cases/Graph_100.txt", "../Test_Cases/Graph_100_urls.txt", 100);
 						//cout << endl;
 						//break;
 						
 					} else if(testCase == "5"){
 					
 					 	cout << endl;
-					 	hasMadeGraph = sparseGraph.buildGraph("../Test_Cases/Graph_200.txt", "../Test_Cases/Graph_200_urls.txt", 200);
+					 	hasMadeGraph = sparseGraph->buildGraph("../Test_Cases/Graph_200.txt", "../Test_Cases/Graph_200_urls.txt", 200);
 						//cout << endl;
 						//break;
 						
@@ -105,7 +120,7 @@ int main(){
 						
 						cout << endl;
 						break;
-						cout << endl;
+						
 					
 					} else {
 					
@@ -129,7 +144,7 @@ int main(){
 				if(hasMadeGraph){
 				
 					cout << endl;
-					sparseGraph.printMatrix();
+					sparseGraph->printMatrix();
 					cout << endl;
 					
 				} else {
@@ -147,7 +162,7 @@ int main(){
 				if(hasMadeGraph){
 					
 					cout << endl;
-					sparseGraph.printGraphData();
+					sparseGraph->printGraphData();
 					cout << endl;
 					
 				} else {
@@ -158,31 +173,33 @@ int main(){
 				}
 				
 			} else if(userInput == "4"){
+				
 				if(hasMadeGraph){
 					/// Calculate Principle Eigenvector / PageRank Vector
 				
-					std::vector<double> rankVector; // this will be the vector to display, needs initial guess
-					int numOfWebsites = sparseGraph.returnSizeOfMat(); // this is the size of the Rankings vector
+					std::vector<double> *rankVector = new vector<double>; // this will be the vector to display, needs initial guess
+					int numOfWebsites = sparseGraph->returnSizeOfMat(); // this is the size of the Rankings vector
 				
 					/// Creating intial guess for rankVector
 					for(int i = 0; i < numOfWebsites; i++){
 				
 						if(i == 0) // start with inital guess of first elem 1, all other elems are 0
-							rankVector.push_back(0.5);
+							rankVector->push_back(0.5);
 						else if (i == 1)
-							rankVector.push_back(0.5);
+							rankVector->push_back(0.5);
 						else
-							rankVector.push_back(0);
+							rankVector->push_back(0);
 						
 					}
 				
 				
 					/// Doing Power Method on this initial guess, returns the converged principle eigenvector / rankings
 					cout << endl;
-					sparseGraph.rankVector = PowerMethod( sparseGraph, rankVector, powerIterations);
+					rankVector = PowerMethod( sparseGraph, rankVector, powerIterations);
+					sparseGraph->rankVector = *rankVector;
 					cout << "Power Method Iterations: " << powerIterations << endl;
 					//sparseGraph.rankVector = sparseGraph.multiplyByVector(rankVector, 1);
-					sparseGraph.printRankings(10);
+					sparseGraph->printRankings(10);
 					cout << endl;
 					
 				} else {
@@ -208,16 +225,17 @@ int main(){
 
 
 
-vector<double> addVectors( vector<double> Vector1 , vector<double> Vector2 , double scaling){
+vector<double>* addVectors( vector<double>* Vector1 , vector<double>* Vector2 , double scaling){
 
-	std::vector<double> outVec; // this is the return vector
-	int sizeOfVector = Vector1.size();
+	std::vector<double> *outVec = new vector<double>; // this is the return vector
+	int sizeOfVector = Vector1->size();
 	double sum;
 	
 	for(int i = 0; i < sizeOfVector; i++){
-	
-		sum = (Vector1[i] + Vector2[i]) * scaling; //add up elems. of two vectors
-		outVec.push_back(sum); // append them to the same index of outVec
+			
+		sum = ( (*Vector1)[i] + (*Vector2)[i] ) * scaling; //add up elems. of two vectors
+		outVec->push_back(sum); // append them to the same index of outVec
+		//cout << "i: " << i << " sum: " << sum << endl;
 	}
 	
 	return outVec;
@@ -225,15 +243,15 @@ vector<double> addVectors( vector<double> Vector1 , vector<double> Vector2 , dou
 
 
 
-vector<double> oneMultiply( vector<double> inVector, double scaling ){
+vector<double>* oneMultiply( vector<double> *inVector, double scaling ){
 
-	int size = inVector.size();
+	int size = inVector->size();
 	double sum = 1;
 	
 
 	for(int i = 0; i < size; i++){
 	
-		inVector[i] = sum * scaling; // make every entry of vector the sum of all elems. in it originally
+		(*inVector)[i] = sum * scaling; // make every entry of vector the sum of all elems. in it originally
 	}
 	
 	return inVector;
@@ -241,16 +259,16 @@ vector<double> oneMultiply( vector<double> inVector, double scaling ){
 
 
 
-vector<double> normalize( vector<double> inVector ){
+vector<double>* normalize( vector<double> *inVector ){
 
 	
-	int size = inVector.size();
+	int size = inVector->size();
 	double sum = 0;
 	
 	
 	for(int i = 0; i < size; i++){
 	
-		sum = sum + inVector[i]; // sum up every elem squared in vector
+		sum = sum + (*inVector)[i]; // sum up every elem squared in vector
 	}
 	
 	//cout << "sum: " << sum << endl;
@@ -259,7 +277,7 @@ vector<double> normalize( vector<double> inVector ){
 	
 	for(int i = 0; i < size; i++){
 	
-		inVector[i] = inVector[i] / magnitude; // normalize each elem of the vector
+		(*inVector)[i] = (*inVector)[i] / magnitude; // normalize each elem of the vector
 	}
 	
 	
@@ -268,9 +286,9 @@ vector<double> normalize( vector<double> inVector ){
 
 
 
-double avgDifference(vector<double> rankVectorOld, vector<double> rankVectorNew){
+double avgDifference(vector<double> *rankVectorOld, vector<double> *rankVectorNew){
 
-	int size = rankVectorOld.size();
+	int size = rankVectorOld->size();
 	//double sum = 0;
 	double avgDiff = 0;
 	double tempDiff = 0;
@@ -278,7 +296,7 @@ double avgDifference(vector<double> rankVectorOld, vector<double> rankVectorNew)
 	
 	for(int i = 0; i < size; i++){
 	
-		tempDiff = abs(rankVectorNew[i] - rankVectorOld[i]);
+		tempDiff = abs( (*rankVectorNew)[i] - (*rankVectorOld)[i]);
 		
 		if(tempDiff > avgDiff)
 			avgDiff = tempDiff;
@@ -293,14 +311,15 @@ double avgDifference(vector<double> rankVectorOld, vector<double> rankVectorNew)
 
 
 
-vector<double> PowerMethod( CSRMat sparseGraph, vector<double> rankVector, int &powerIterations){
+vector<double>* PowerMethod( CSRMat *sparseGraph, vector<double> *rankVector, int &powerIterations){
 
 	cout << "Entered power method" << endl;
-
+	cout << "CALCULATING (ROBOT VOICE)..." << endl;
 	double diff = 1;
-	vector<double> newRankVector = rankVector;
+	vector<double> *newRankVector = new vector<double>;
+	newRankVector = rankVector;
 	
-	double arraySize = double(sparseGraph.returnSizeOfMat());
+	double arraySize = double(sparseGraph->returnSizeOfMat());
 	
 	/// Constants for two vectors
 	double s_const = ALPHA;
@@ -311,48 +330,54 @@ vector<double> PowerMethod( CSRMat sparseGraph, vector<double> rankVector, int &
 	while(diff > POWER_METHOD_TOLERANCE){
 		
 		/// Creating Vectors to converge
-		cout << endl;
-		cout << "Entering new Power Method iteration:" << endl;
-		cout << "About to create vectors:" << endl;
+		//cout << endl;
+		//cout << "Entering new Power Method iteration:" << endl;
+		//cout << "About to create vectors:" << endl;
 
 		
 
 		//sparseGraph.printGraphData();
 		//cout << "about to vector multiply" << endl;
-		std::vector<double> S = sparseGraph.multiplyByVector(rankVector, s_const);
+		std::vector<double> *S = sparseGraph->multiplyByVector(rankVector, s_const);
 		//S = normalize(S);
 		//cout << "About to one multiply" << endl;
 
-		std::vector<double> Ones = oneMultiply(rankVector, ones_const);
+		std::vector<double> *Ones = oneMultiply(rankVector, ones_const);
 		//Ones = normalize(Ones);
-		//cout << "About to build and normalize vector" << endl;
-
-		newRankVector = addVectors(S, Ones, 1); // add the two contributions		
+		// << "About to build and normalize vector" << endl;
+		
+		//cout << "about to add the vectors" << endl;		
+		newRankVector = addVectors(S, Ones, 1); // add the two contributions
+		
+		//cout << "about to normalize" << endl;		
 		//newRankVector = normalize(newRankVector); // normalize the new vector
 		newRankVector = normalize(newRankVector);
+		
+		//cout << "about to compute the diff" << endl;
 		diff = avgDifference(rankVector, newRankVector); // find the average differance between elements of the two vectors
 		
-		int size = newRankVector.size();
+		int size = newRankVector->size();
 		double sum = 0;
 		
-		cout << "Created new PageRank vector." << endl;
+		//cout << "Created new PageRank vector." << endl;
 		
 		for(int i = 0; i < size; i++){
 		
-			sum = sum + newRankVector[i]; // sum up every elem squared in vector
+			sum = sum + (*newRankVector)[i]; // sum up every elem squared in vector
 		}
 		
-		cout << "Sum of PageRank Vector Elems: " << sum << endl;
+		//cout << "Sum of PageRank Vector Elems: " << sum << endl;
 		rankVector = newRankVector;
+		
 		
 		powerIterations++;
 		cout << "Computed diff from last vector: " << diff << endl;
 		
-		cout << endl;
+		//cout << endl;
 
 		
 	}
 	
-	
+	delete newRankVector;
 	return rankVector;
 }

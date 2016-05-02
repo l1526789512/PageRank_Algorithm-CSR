@@ -25,7 +25,7 @@ class CSRMat{
         int returnSizeOfMat();
         int returnNumEls();
         //void saveRankVector(std::vector<double> newRankVec);
-        std::vector<double> multiplyByVector( std::vector<double> rankVector, double scaling );
+        std::vector<double>* multiplyByVector( std::vector<double>* rankVector, double scaling );
 
         struct CSRMatrix{
 
