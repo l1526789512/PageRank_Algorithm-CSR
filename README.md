@@ -34,5 +34,5 @@ GROUP MEMBERS:
 N/A. (I worked alone on this project)
 
 OPEN ISSUES/BUGS
-There needs to be a lot more testing done on the PageRank calculation portion of the system. Right now it appears like it is printing correctly, but more testing of the matrix multiplication algorithm would certainly help its believed accuracy. 
-- User might be able to run some menu options without first building the CSR Matrix. Can cause crashes.
+- There needs to be a lot more testing done on the PageRank calculation portion of the system. Right now it appears like it is          printing correctly, but more testing of the matrix multiplication algorithm would certainly help its believed accuracy. 
+- Convergence to an acceptable accuracy is not always gauranteed. 
