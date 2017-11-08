@@ -1,6 +1,6 @@
 # Renninger_CSCI2270_FinalProject
 
-This project will implement a dynamic CSR Sparse matrix as the basis for a C++ implentation of the 
+This project will implement a dynamic CSR Sparse matrix as the basis for a C++ implementation of the 
 Google PageRank Algorithm. A web crawler will be used to generate test cases, upon which my PageRank Algorithm will be tested.
 The crawler should store a normed, sparse matrix (in COO format) representation of a connectivity matrix (a graph). From there, it will be converted to CSR and its principle eigenvector will be calculated to a set precision using the power method (matrix - vector multiplication) and the PageRank of each item in the test case will be determined. Also included are the Matlab scripts I wrote to generate the test cases. The project is broken up into two large parts:
   
