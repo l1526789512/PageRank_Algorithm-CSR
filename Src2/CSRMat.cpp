@@ -282,29 +282,28 @@ bool CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 				/// Checking if current line contains a new row for CSR storage
 				
 				
-				if(count == 1 && row == currentRow){
+				/*if(count == 1 && row == currentRow){
 					
 					//isFirstTime = true;
 					currentRow = row;
 					
-				} else if( count == 1 && row != currentRow ){
+				} else*/
+				if(row != currentRow ){
 					
 					if( (currentRow + 1) == row ){ // no row of zeros
-					
 						currentRow = row; // set currentRow to the current row
-						isNewRow =  true;
-						
-					} else { // row of all zeros preceeds current row
-					
-						currentRow = row; // set currentRow to the current row
+					} else { // there might be more than one row of all zeros preceeds current row
 						int newRowIndex = connectivityGraph.values.size(); // the row index of the first elem in next row is simply # elems in current vector
-						connectivityGraph.rowRangeIndex.push_back(newRowIndex); // append the above to the row vector
-						
+						int times = row-currentRow-1;
+						currentRow = row; // set currentRow to the current row
+						while(times--){
+							connectivityGraph.rowRangeIndex.push_back(newRowIndex); // append the above to the row vector
+						}
 					}
+					isNewRow =  true;
 					
 					
-					
-				} else {
+				} /*else {
 					
 					//isFirstTime = false;
 					
@@ -314,7 +313,7 @@ bool CSRMat::buildGraph(const char* fileNameMat, const char* fileNameURL, int si
 						isNewRow =  true;
 						
 					}
-				} 
+				} */
 				
 				addValue(value, row, column, isNewRow); // add the values to the CSR Mat
 				
